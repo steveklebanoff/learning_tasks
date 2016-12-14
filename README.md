@@ -1,6 +1,8 @@
 # Learning Tasks
 
-Elixir Task demos for Elixir meetup
+Elixir Task demos for the 12/15/2016 [San Diego Elixir/Erlang meetup](https://www.meetup.com/San-Diego-Elixir-Erlang/events/235317088/).
+
+See accompanying [slides](https://docs.google.com/presentation/d/1g8CLIzrk1c8uVmFhiFLjyK0CZwzLgSC1gIZwMK9asVY/edit?usp=sharing).
 
 ## Tasks
 
@@ -12,21 +14,21 @@ For the purpose of this exercise, we're going to explore a few different functio
 
 To autoload modules in console, run `iex -S mix`
 
-## ArtistFinder
+#### ArtistFinder
 
 This is file that simulates finding a spotify artist id.
 
-### ForEachFetcher
+#### ForEachFetcher
 
 This simulates how we do things now.  Does one at a time.
 
 `LearningTasks.ForEachFetcher.fetch(artist_names)`
 
-## Task.async
+#### Task.async
 
 Allows us to kick off jobs to be done in another Elixir process.
 
-### AsyncFetcher
+#### AsyncFetcher
 
 Kicks off jobs using Task.async.
 
@@ -34,7 +36,7 @@ Kicks off jobs using Task.async.
 
 But, how do we get the results?  Use `flush` to see messages received.
 
-### AwaitFetcher
+#### AwaitFetcher
 
 Waits for results so you can return them
 
@@ -42,7 +44,7 @@ Waits for results so you can return them
 
 *What is the problem with this?*  If the second task is done before the first, we don't have a chance to do anything with the results.
 
-### ReceiveFetcher
+#### ReceiveFetcher
 
 Collects all results by keeping track of the references we created, and removing them as they get processed
 
@@ -56,16 +58,14 @@ Collects all results by keeping track of the references we created, and removing
 See: `LearningTasks.ReceiveFetcher.fetch(["Talking Heads", "Crash Artist", "Sister Nancy"])`
 
 
-### Creating a Supervised Receive Fetcher
+#### Creating a Supervised Receive Fetcher
 
 We are going to use [Task.Supervisor.async_nolink](https://hexdocs.pm/elixir/Task.Supervisor.html#async_nolink/2) to continue even when errors are raised
 
 See: `LearningTasks.SupervisedFetcher.fetch(["Grateful Dead", "Crash Artist", "Talking Heads"])`
 
 ## Nice to have additions:
-- Add summary
 - Run credo on all files
 - Add benchmarks for each, figure out easy way to run this
 - Change to &(&1) syntax where applicable
 - Consider tail call optimization implications
-- Maybe rename files to have 01 prefix?
