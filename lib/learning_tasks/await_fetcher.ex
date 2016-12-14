@@ -6,6 +6,9 @@ defmodule LearningTasks.AwaitFetcher do
         LearningTasks.ArtistFinder.find(artist_name)
       end)
     end)
-    |> Enum.map(&(Task.await(&1)))
+    |> Enum.map fn(task) ->
+      {:ok, return_val} = Task.await(task)
+      return_val
+    end
   end
 end
